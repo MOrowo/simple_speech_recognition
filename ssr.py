@@ -8,25 +8,7 @@ mic = sr.Microphone()
 
 print("hello")
 
-while True:
-    try:
-        with mic as source:
-            audio = r.listen(source)
-        words = r.recognize_sphinx(audio)
-        print(words)
-        color_list = ["test", "red", "green", "blue", "yellow", "exit"]
-        if words in color_list:
-            doColor(words)
-        else:
-            continue
-
-    except sr.UnknownValueError:
-        print("Sphinx could not understand audio")
-    except sr.RequestError as e:
-        print("Sphinx error; {0}".format(e))
-
-
-def doColor(words):
+def hh1(words):
     if words == "test":
         print("test has been executed")
         return True
@@ -64,3 +46,21 @@ def doColor(words):
         sleep(1)
         print("Goodbye")
         return False
+
+while True:
+
+    try:
+        with mic as source:
+            audio = r.listen(source)
+        words = r.recognize_sphinx(audio)
+        print(words)
+        color_list = ["test", "red", "green", "blue", "yellow", "exit"]
+        if words in color_list:
+            hh1(words)
+        else:
+            continue
+
+    except sr.UnknownValueError:
+        print("Sphinx could not understand audio")
+    except sr.RequestError as e:
+        print("Sphinx error; {0}".format(e))
