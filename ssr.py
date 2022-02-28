@@ -1,18 +1,13 @@
 import speech_recognition as sr
-from datetime import date
 from time import sleep
 from blinkt import set_pixel, set_brightness, show, clear, set_all
 
 r = sr.Recognizer()
 mic = sr.Microphone()
 
-print("hello")
-
-def hh1(words):
-    if words == "test":
-        print("test has been executed")
-        return True
-
+# Display color on the blinkt
+# @param words - string
+def display_color(words):
     if words == "red":
         clear()
         set_all(255,0,0)
@@ -50,17 +45,19 @@ def hh1(words):
 while True:
 
     try:
+        # Use microphone
         with mic as source:
             audio = r.listen(source)
-        words = r.recognize_sphinx(audio)
-        print(words)
+        words = r.recognize_google(audio)
+
+        # Validation the voice command
         color_list = ["test", "red", "green", "blue", "yellow", "exit"]
         if words in color_list:
-            hh1(words)
+            display_color(words)
         else:
             continue
 
     except sr.UnknownValueError:
-        print("Sphinx could not understand audio")
+        print("Could not understand audio")
     except sr.RequestError as e:
-        print("Sphinx error; {0}".format(e))
+        print("Google error; {0}".format(e))
